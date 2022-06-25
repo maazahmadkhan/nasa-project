@@ -2,7 +2,7 @@
   "name": "node-project-api",
   "version": "1.0.0",
   "description": "NODE mission control API",
-  "main": "src/server.js",
+  "main": "src/server.ts",
   "scripts": {
     "start": "ts-node-dev src/server.ts"
   },
