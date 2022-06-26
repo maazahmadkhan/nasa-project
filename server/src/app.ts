@@ -4,6 +4,7 @@ import path from "path";
 import { planetsRouter } from "./routes/planets/planets.router";
 import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
+import morgan from "morgan";
 const app = express();
 
 app.use(
@@ -11,6 +12,7 @@ app.use(
     origin: "http://localhost:3000",
   })
 );
+app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
 
