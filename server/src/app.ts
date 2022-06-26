@@ -1,6 +1,9 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
+import path from "path";
 import { planetsRouter } from "./routes/planets/planets.router";
+import { errorHandler } from "./middlewares/error-handler";
+import { NotFoundError } from "./errors/not-found-error";
 const app = express();
 
 app.use(
@@ -9,6 +12,18 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "..", "public")));
+
 app.use(planetsRouter);
+
+app.get("/", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+});
+
+app.all("*", async () => {
+  throw new NotFoundError();
+});
+
+app.use(errorHandler);
 
 export { app };
