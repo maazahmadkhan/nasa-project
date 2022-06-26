@@ -27,4 +27,5 @@ const launch: Launch = {
 const launches: Launches = {};
 launches[launch.flightNumber] = launch;
 
-export { launches };
+const getAllLaunches = () => Object.values(launches);
+export { launches, getAllLaunches };
