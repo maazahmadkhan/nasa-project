@@ -20,7 +20,12 @@ app.get("/", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
 
-app.all("*", async () => {
+//for async
+// app.all("*", async (req, res, next) => {
+//   next(new NotFoundError());
+// });
+
+app.all("*", () => {
   throw new NotFoundError();
 });
 
