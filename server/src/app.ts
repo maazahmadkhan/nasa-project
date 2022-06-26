@@ -16,9 +16,10 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use(planetsRouter);
 
-app.get("/", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "public", "index.html"));
-});
+//unnecessary
+// app.get("/", (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+// });
 
 //for async
 // app.all("*", async (req, res, next) => {
