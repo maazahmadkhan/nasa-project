@@ -20,11 +20,7 @@ export const httpAddNewLaunch = async (req: Request, res: Response) => {
     .json(addNewLaunch(launch));
 };
 
-export const httpAbortLaunch = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const httpAbortLaunch = async (req: Request, res: Response) => {
   const { id } = req.params;
   const launchId = Number(id);
   if (existsLaunchWithId(launchId)) {
@@ -32,6 +28,6 @@ export const httpAbortLaunch = async (
       .status(AppConstants.HTTP_STATUS_OK)
       .json(abortsLaunchWithId(launchId));
   } else {
-    next(new NotFoundError());
+    throw new NotFoundError();
   }
 };
