@@ -36,6 +36,15 @@ router.post(
   httpAddNewLaunch
 );
 
+/*
+One popular rule of thumb is:
+
+use "parameters as a part of a path" for mandatory parameters
+/launches/101
+
+use "parameters as a query string" for optional parameters.
+?launches=101
+*/
 router.delete(
   "/:id",
   [param("id").isNumeric().withMessage("Id must be a number")],
