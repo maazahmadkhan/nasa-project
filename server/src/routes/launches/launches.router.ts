@@ -20,6 +20,8 @@ router.post(
       )
       .withMessage("Destination value is incorrect"),
     body("launchDate")
+      .exists()
+      .withMessage("Please provide a Launch Date")
       .isISO8601()
       .toDate()
       .withMessage("Launch Date format is incorrect"),
