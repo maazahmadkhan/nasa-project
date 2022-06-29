@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:client": "npm run build --prefix client",
+    "deploy:client": "npm run build --prefix client",
+    "deploy:server":"npm run deploy --prefix server",
     "install:server": "npm i --prefix server",
     "install:client": "npm i --prefix client",
     "install": "npm run install:server && npm run install:client",
     "start": "npm run server & npm run client",
     "server": "npm start --prefix server",
     "client": "npm start --prefix client",
-    "deploy": "npm run build:client && npm run server",
+    "deploy": "npm run deploy:client && npm run deploy:server",
     "test:server": "npm test --prefix server",
     "test:client": "npm test --prefix client",
     "test": "npm run test:server && npm run test:client"

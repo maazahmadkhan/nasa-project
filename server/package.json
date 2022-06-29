@@ -7,7 +7,8 @@
     "start": "ts-node-dev src/server.ts",
     "test": "jest --watchAll --no-cache",
     "test:ci": "jest",
-    "build": "tsc --build --clean"
+    "build": "rimraf ./build && tsc",
+    "deploy":"npm run build && node build/server.js"
   },
   "jest": {
     "preset": "ts-jest",
@@ -36,6 +37,7 @@
     "@types/node": "^18.0.0",
     "@types/supertest": "^2.0.12",
     "jest": "^28.1.1",
+    "rimraf": "^3.0.2",
     "supertest": "^6.2.3",
     "ts-jest": "^28.0.5",
     "ts-node-dev": "^2.0.0",
