@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "deploy:client": "npm run build --prefix client",
-    "deploy:server":"npm run deploy --prefix server",
+    "deploy:server": "npm run deploy --prefix server",
     "install:server": "npm i --prefix server",
     "install:client": "npm i --prefix client",
     "install": "npm run install:server && npm run install:client",
