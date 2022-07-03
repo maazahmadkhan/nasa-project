@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import path from "path";
 import "express-async-errors";
+import "reflect-metadata";
 import { v1 } from "./routes/v1";
 import { errorHandler } from "./middlewares/error-handler";
 import morgan from "morgan";

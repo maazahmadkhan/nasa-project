@@ -1,11 +1,8 @@
 import { Client } from "pg";
+import { config } from "dotenv";
 
-const client = new Client({
-  user: "postgres",
-  host: "localhost",
-  database: "node-react",
-  password: "postgrespass",
-  port: 5432,
-});
+config();
+
+const client = new Client();
 
 export { client };
