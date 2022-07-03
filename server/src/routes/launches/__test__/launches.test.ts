@@ -4,7 +4,7 @@ import { app } from "../../../app";
 describe("Test GET /launches", () => {
   test("It should respond with 200 success", async () => {
     await request(app)
-      .get("/api/launches")
+      .get("/api/v1/launches")
       .expect("Content-Type", /json/)
       .expect(200);
   });
@@ -25,7 +25,7 @@ describe("Test POST /launches", () => {
   };
   test("It should respond with 201 Created", async () => {
     const response = await request(app)
-      .post("/api/launches")
+      .post("/api/v1/launches")
       .send(newLaunch)
       .expect("Content-Type", /json/)
       .expect(201);
@@ -37,7 +37,7 @@ describe("Test POST /launches", () => {
 
   test("It should respond with 400 when any field is incorrect", async () => {
     const response = await request(app)
-      .post("/api/launches")
+      .post("/api/v1/launches")
       .send(launchDataWithoutDate)
       .expect("Content-Type", /json/)
       .expect(400);
@@ -58,7 +58,7 @@ describe("Test POST /launches", () => {
 
   test("It should check incorrect date format", async () => {
     const response = await request(app)
-      .post("/api/launches")
+      .post("/api/v1/launches")
       .send(launchDataWithInvalidDate)
       .expect("Content-Type", /json/)
       .expect(400);

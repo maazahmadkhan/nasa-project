@@ -2,8 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import path from "path";
 import "express-async-errors";
-import { planetsRouter } from "./routes/planets/planets.router";
-import { launchesRouter } from "./routes/launches/launches.router";
+import { v1 } from "./routes/v1";
 import { errorHandler } from "./middlewares/error-handler";
 import morgan from "morgan";
 const app = express();
@@ -17,8 +16,7 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-app.use("/api/planets", planetsRouter);
-app.use("/api/launches", launchesRouter);
+app.use("/api/v1", v1);
 
 app.get("/*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
