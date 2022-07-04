@@ -15,6 +15,10 @@
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "./src/test/setup.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "./build/",
+      "./node_modules/"
     ]
   },
   "keywords": [],
