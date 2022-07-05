@@ -8,6 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import Clickable from "./Clickable";
 import Centered from "./Centered";
+import { useHistory } from "react-router-dom";
 
 const styles = (theme) => ({
   root: {
@@ -28,6 +29,7 @@ const styles = (theme) => ({
     marginLeft: "10px",
     marginRight: "15px",
     fontSize: 28,
+    cursor: "pointer",
   },
   clickable: {
     fontSize: 21,
@@ -63,6 +65,7 @@ const styles = (theme) => ({
 });
 
 const Header = (props) => {
+  const history = useHistory();
   const { classes, onNav, ...rest } = props;
   return (
     <ArwesHeader animate>
@@ -78,9 +81,16 @@ const Header = (props) => {
           }}
         />
         <Logo animate size={50} className={classes.logo} layer="header" />
-        <Words animate className={classes.banner}>
-          NODE Mission Control
-        </Words>
+        <Clickable className={classes.clickable} onClick={onNav}>
+          <Highlight className={classes.button} animate layer="header">
+            <Link className={classes.link} to="/">
+              <Words animate className={classes.banner}>
+                NODE Mission Control
+              </Words>
+            </Link>
+          </Highlight>
+        </Clickable>
+
         <nav className={`${classes.nav}`}>
           <Clickable className={classes.clickable} onClick={onNav}>
             <Highlight className={classes.button} animate layer="header">

@@ -1,38 +1,50 @@
 import express, { Request, Response } from "express";
-import { launchesRouter } from "../launches.router";
 import { validateRequest } from "../../../middlewares/validate-requests";
 import { body } from "express-validator";
 import { addNewLaunch } from "../../../models/launches.model";
-import { planets } from "../../../models/planets.model";
+import { existsPlanetWithId } from "../../../models/planets.model";
+import { CustomRequestValidationError } from "../../../errors/custom-request-validation-error";
 
+const desinationErrorMsg = "Destination value is incorrect";
 const router = express.Router();
 
 router.post(
   "/",
   [
-    body("destination")
-      .custom((selectedPlanet: string) =>
-        planets.some((planet) => planet.kepler_name === selectedPlanet)
-      )
-      .withMessage("Destination value is incorrect"),
+    body("destination").notEmpty().isNumeric().withMessage(desinationErrorMsg),
     body("launchDate")
-      .exists()
-      .withMessage("Please provide a Launch Date")
+      .notEmpty()
       .isISO8601()
       .toDate()
-      .withMessage("Launch Date format is incorrect"),
+      .withMessage("Please provide a Launch Date in ISO-8601 format."),
     body("mission")
-      .isString()
       .notEmpty()
+      .isString()
       .withMessage("Please provide a mission name"),
     body("rocket")
-      .isString()
       .notEmpty()
+      .isString()
       .withMessage("Please provide a rocket name"),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const newLaunch = req.body;
+    const launch = req.body;
+
+    const Planet = await existsPlanetWithId(launch.destination);
+
+    if (!Planet) {
+      throw new CustomRequestValidationError([
+        {
+          field: "destination",
+          message: desinationErrorMsg,
+        },
+      ]);
+    }
+    const newLaunch = {
+      ...launch,
+      destination: Planet,
+    };
+
     return res.status(201).json(addNewLaunch(newLaunch));
   }
 );

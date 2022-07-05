@@ -17,7 +17,6 @@ const History = (props) => {
             <td>{new Date(launch.launchDate).toDateString()}</td>
             <td>{launch.mission}</td>
             <td>{launch.rocket}</td>
-            <td>{launch.customers?.join(", ")}</td>
           </tr>
         );
       });
@@ -39,7 +38,6 @@ const History = (props) => {
                 <th style={{ width: "9rem" }}>Date</th>
                 <th>Mission</th>
                 <th style={{ width: "7rem" }}>Rocket</th>
-                <th>Customers</th>
               </tr>
             </thead>
             <tbody>{tableBody}</tbody>

@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import { launchesRouter } from "../launches.router";
 import { NotFoundError } from "../../../errors/not-found-error";
 import { validateRequest } from "../../../middlewares/validate-requests";
 import { param } from "express-validator";
@@ -17,11 +16,12 @@ router.delete(
   async (req: Request, res: Response) => {
     const { id } = req.params;
     const launchId = Number(id);
-    const exists = existsLaunchWithId(launchId);
-    if (!exists) {
+    const Launch = await existsLaunchWithId(launchId);
+    if (!Launch) {
       throw new NotFoundError();
     }
-    return res.status(200).json(abortsLaunchWithId(launchId));
+    const abortedLaunch = await abortsLaunchWithId(Launch);
+    return res.status(200).json(abortedLaunch);
   }
 );
 

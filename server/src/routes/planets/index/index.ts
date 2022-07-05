@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
-import { planets } from "../../../models/planets.model";
+import { getAllPlanets } from "../../../models/planets.model";
 const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
+  const planets = await getAllPlanets();
   return res.status(200).json(planets);
 });
 
