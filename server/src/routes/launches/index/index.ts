@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
-import { getAllLaunches } from "../../../models/launches.model";
+import { getAllLaunchesWithDestination } from "../../../models/launches.model";
 
 const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
-  const launches = await getAllLaunches();
+  const launches = await getAllLaunchesWithDestination();
   return res.status(200).json(launches);
 });
 

@@ -28,6 +28,19 @@ const getAllLaunches = async () => {
   return await getLaunchRepository().find();
 };
 
+const getAllLaunchesWithDestination = async () => {
+  return await getLaunchRepository().find({
+    relations: {
+      destination: true,
+    },
+    select: {
+      destination: {
+        keplerName: true,
+      },
+    },
+  });
+};
+
 const existsLaunchWithId = async (id: number) => {
   return await getLaunchRepository().findOne({
     where: {
@@ -42,4 +55,10 @@ const abortsLaunchWithId = async (launch: Launch) => {
   return await AppDataSource.manager.save(launch);
 };
 
-export { addNewLaunch, getAllLaunches, existsLaunchWithId, abortsLaunchWithId };
+export {
+  addNewLaunch,
+  getAllLaunches,
+  getAllLaunchesWithDestination,
+  existsLaunchWithId,
+  abortsLaunchWithId,
+};
