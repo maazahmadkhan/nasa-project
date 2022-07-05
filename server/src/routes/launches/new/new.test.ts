@@ -1,5 +1,6 @@
 import request from "supertest";
 import { app } from "../../../app";
+import { errorMsgs } from "./new";
 
 const newLaunch = {
   destination: "Kepler-1652 b",
@@ -35,16 +36,7 @@ it("Should respond with 400 when any field is incorrect", async () => {
     .expect(400);
 
   expect(response.body).toStrictEqual({
-    errors: [
-      {
-        message: "Please provide a Launch Date",
-        field: "launchDate",
-      },
-      {
-        message: "Launch Date format is incorrect",
-        field: "launchDate",
-      },
-    ],
+    errors: [errorMsgs.launchDate],
   });
 });
 
@@ -56,11 +48,6 @@ it("Should check incorrect date format", async () => {
     .expect(400);
 
   expect(response.body).toStrictEqual({
-    errors: [
-      {
-        message: "Launch Date format is incorrect",
-        field: "launchDate",
-      },
-    ],
+    errors: [errorMsgs.launchDate],
   });
 });
