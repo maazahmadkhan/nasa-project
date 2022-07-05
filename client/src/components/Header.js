@@ -8,7 +8,6 @@ import {
 import { Link } from "react-router-dom";
 import Clickable from "./Clickable";
 import Centered from "./Centered";
-import { useHistory } from "react-router-dom";
 
 const styles = (theme) => ({
   root: {
@@ -65,7 +64,6 @@ const styles = (theme) => ({
 });
 
 const Header = (props) => {
-  const history = useHistory();
   const { classes, onNav, ...rest } = props;
   return (
     <ArwesHeader animate>
