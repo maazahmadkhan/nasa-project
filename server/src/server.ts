@@ -1,3 +1,4 @@
+import { Server } from "http";
 import { app } from "./app";
 import {
   startDataSourceConnection,
@@ -6,9 +7,6 @@ import {
 
 const PORT = process.env.PORT || 8000;
 
-process.on("SIGINT", closeDataSourceConnection);
-process.on("SIGTERM", closeDataSourceConnection);
-
 const start = async () => {
   try {
     await startDataSourceConnection();
@@ -16,8 +14,38 @@ const start = async () => {
     console.error(error);
   }
 
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}...`);
+  });
+
+  process.on("SIGINT", async () => await stop(server, "SIGINT"));
+};
+
+/*
+Graceful shutdown
+
+SIGTERM : can be blocked, handled, and ignored. (polite)
+          The shell command kill generates SIGTERM by default.
+
+SIGINT: Ctrl + C . program interrupt
+
+
+
+
+*/
+
+const stop = async (server: Server, signalCode: string) => {
+  console.info(`${signalCode} signal received.`);
+  console.log("Closing http server.");
+  server.close(async (err) => {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+
+    await closeDataSourceConnection();
+    console.log("Http server closed.");
+    process.exit(0);
   });
 };
 

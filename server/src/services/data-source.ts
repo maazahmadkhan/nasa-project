@@ -17,11 +17,11 @@ const AppDataSource = new DataSource({
 
 const startDataSourceConnection = async () => {
   await AppDataSource.initialize();
-  console.log("Started Datasource Connection...");
+  console.log(`Started Datasource Connection in ${process.env.NODE_ENV}`);
 };
-const closeDataSourceConnection = () => {
-  // AppDataSource.destroy();
-  console.log("Closed Datasource Connection...");
+const closeDataSourceConnection = async () => {
+  await AppDataSource.destroy();
+  console.log(`Closed Datasource Connection in ${process.env.NODE_ENV}`);
 };
 
 export { AppDataSource, startDataSourceConnection, closeDataSourceConnection };
