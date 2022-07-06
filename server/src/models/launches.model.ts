@@ -33,11 +33,6 @@ const getAllLaunchesWithDestination = async () => {
     relations: {
       destination: true,
     },
-    select: {
-      destination: {
-        keplerName: true,
-      },
-    },
   });
 };
 
