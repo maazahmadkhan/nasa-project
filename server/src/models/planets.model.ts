@@ -34,7 +34,11 @@ export const loadPlanets = async () => {
     planet.keplerName = planetName;
     return planet;
   });
-  return await getPlanetRepository().save(planets);
+  try {
+    return await getPlanetRepository().save(planets);
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export { getAllPlanets, existsPlanetWithId };
