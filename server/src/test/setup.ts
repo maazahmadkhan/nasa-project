@@ -1,13 +1,12 @@
-import { createDatabase } from "typeorm-extension";
-import { AppDataSource } from "../services/data-source";
+import {
+  startDataSourceConnection,
+  closeDataSourceConnection,
+} from "../services/data-source";
 
 beforeAll(async () => {
-  await createDatabase();
-  await AppDataSource.initialize();
-  console.log(`Started Datasource Connection in ${process.env.NODE_ENV}`);
+  await startDataSourceConnection();
 });
 
 afterAll(async () => {
-  await AppDataSource.destroy();
-  console.log(`Closed Datasource Connection in ${process.env.NODE_ENV}`);
+  await closeDataSourceConnection();
 });

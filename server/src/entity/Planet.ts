@@ -7,6 +7,7 @@ export class Planet {
 
   @Column({
     length: 100,
+    unique: true,
   })
   keplerName: string;
 }
